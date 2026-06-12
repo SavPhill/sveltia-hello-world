@@ -9,113 +9,57 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
-  <style>
-    :root { 
-      --primary: #1e2d24; /* Deep, luxury botanical green */
-      --accent: #c5a880;  /* Sophisticated gold/champagne accent */
-      --dark: #1a1a1a; 
-      --light: #fcfbfa;   /* Creamy soft off-white */
-      --muted: #6e726e;
-    }
-    
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.7; -webkit-font-smoothing: antialiased; }
-    
-    /* Luxury Navbar */
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; background: transparent; position: absolute; top: 0; left: 0; width: 100%; z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
-    
-    /* Hero Section */
-    header { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 2rem; background-size: cover; background-position: center; position: relative; }
-    header::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%); z-index: 1; }
-    header * { position: relative; z-index: 2; }
-    header h1 { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 400; letter-spacing: -1px; margin-bottom: 1rem; max-width: 900px; }
-    header p { font-size: 1.25rem; font-weight: 300; letter-spacing: 1px; max-width: 600px; margin-bottom: 2.5rem; color: rgba(255,255,255,0.9); }
-    
-    /* Elegant Buttons */
-    .btn { display: inline-block; background-color: var(--accent); color: var(--primary); padding: 1rem 2.5rem; text-decoration: none; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; border-radius: 0; transition: all 0.4s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-    .btn:hover { background-color: white; color: var(--dark); transform: translateY(-2px); }
-    
-    /* Standard Layout Containers */
-    .section-pad { padding: 7rem 2rem; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 400; text-align: center; color: var(--primary); margin-bottom: 1rem; }
-    .section-subtitle { text-align: center; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 4rem; font-weight: 500; }
-    
-    /* Editorial Intro Section */
-    .intro-block { max-width: 800px; margin: 0 auto; text-align: center; font-family: 'Playfair Display', serif; font-size: 1.6rem; line-height: 2; color: #3a403a; font-style: italic; }
-    
-    /* Premium Amenities Grid */
-    .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
-    .amenity-card { text-align: center; padding: 2.5rem 1.5rem; background: white; border: 1px solid rgba(0,0,0,0.03); transition: all 0.3s ease; }
-    .amenity-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(30,45,36,0.05); }
-    .amenity-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--primary); margin-bottom: 0.75rem; font-weight: 400; }
-    .amenity-card p { font-size: 0.95rem; color: var(--muted); }
-    
-    /* Luxury Rooms Grid Layout */
-    .rooms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3.5rem; }
-    .room-card { background: white; overflow: hidden; border-radius: 0; transition: all 0.4s ease; display: flex; flex-direction: column; box-shadow: 0 5px 20px rgba(0,0,0,0.02); }
-    .room-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-    .room-img-wrapper { width: 100%; height: 320px; overflow: hidden; position: relative; }
-    .room-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-    .room-card:hover img { transform: scale(1.05); }
-    .room-details { padding: 2.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #f0ede9; border-top: none; }
-    .room-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; border-bottom: 1px solid #f0ede9; padding-bottom: 1rem; }
-    .room-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--primary); font-weight: 400; }
-    .room-price { font-size: 1.1rem; color: var(--accent); font-weight: 500; }
-    .room-desc { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.8; }
-    .room-guests { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #999; }
-    
-    /* Footer styling */
-    footer { background: var(--primary); color: white; padding: 4rem 2rem; text-align: center; font-size: 0.9rem; font-weight: 300; letter-spacing: 1px; }
-    footer p { color: rgba(255,255,255,0.6); margin-top: 1rem; }
-    
-    @media (max-width: 768px) {
-      header h1 { font-size: 2.5rem; }
-      nav { padding: 1.5rem 2rem; }
+  <style type="text/theme">
+    @theme {
+      --color-resort-green: #1e2d24;
+      --color-resort-gold: #c5a880;
+      --color-resort-cream: #fcfbfa;
+      --font-serif: 'Playfair Display', serif;
+      --font-sans: 'Inter', sans-serif;
     }
   </style>
 </head>
-<body>
+<body class="font-sans bg-resort-cream text-neutral-900 antialiased selection:bg-resort-gold selection:text-resort-green">
 
-  <nav>
-    <div class="logo" id="nav-logo">Resort</div>
-    <div></div> </nav>
+  <nav class="absolute top-0 left-0 w-full z-10 flex justify-between items-center px-6 md:px-16 py-6 border-b border-white/10">
+    <div class="font-serif text-white text-xl tracking-[0.2em] uppercase font-semibold" id="nav-logo">Resort</div>
+    <div></div>
+  </nav>
 
-  <header id="hero" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80');">
-    <h1 id="hotel-name">Loading Sanctuary...</h1>
-    <p id="hero-headline"></p>
-    <a href="#" id="booking-btn" class="btn" target="_blank">Reserve Your Stay</a>
+  <header id="hero" class="relative h-[90vh] flex flex-col justify-center items-center text-center px-4 bg-cover bg-center before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-b before:from-black/40 before:to-black/60 before:z-1">
+    <h1 id="hotel-name" class="relative z-2 font-serif text-white text-4xl md:text-6xl font-normal tracking-tight mb-4 max-w-4xl">Loading Sanctuary...</h1>
+    <p id="hero-headline" class="relative z-2 text-white/90 text-lg md:text-xl font-light tracking-wide max-w-xl mb-10"></p>
+    <a href="#" id="booking-btn" class="relative z-2 inline-block bg-resort-gold text-resort-green px-10 py-4 text-xs font-medium uppercase tracking-[0.2em] shadow-xl hover:bg-white hover:text-neutral-900 transition-all duration-300 hover:-translate-y-0.5" target="_blank">Reserve Your Stay</a>
   </header>
 
-  <section class="section-pad" style="background-color: #fff;">
-    <div class="container">
-      <div id="intro-text" class="intro-block"></div>
+  <section class="py-24 md:py-32 bg-white px-6">
+    <div class="max-w-4xl mx-auto text-center font-serif text-2xl md:text-3xl leading-relaxed text-neutral-800 italic" id="intro-text"></div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-resort-cream border-t border-neutral-200/50 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-serif text-4xl font-normal text-center text-resort-green mb-2">The Resort Experience</h2>
+      <div class="text-center text-xs font-medium uppercase tracking-[0.25em] text-resort-gold mb-16">Curated Luxury & Wellness</div>
+      <div id="amenities-container" class="grid grid-cols-1 md:grid-cols-3 gap-12"></div>
     </div>
   </section>
 
-  <section class="section-pad" style="background-color: var(--light); border-top: 1px solid #f0ede9;">
-    <div class="container">
-      <h2 class="section-title">The Resort Experience</h2>
-      <div class="section-subtitle">Curated Luxury & Wellness</div>
-      <div id="amenities-container" class="amenities-grid"></div>
+  <section class="py-24 md:py-32 bg-white border-t border-neutral-200/50 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-serif text-4xl font-normal text-center text-resort-green mb-2">Accommodations</h2>
+      <div class="text-center text-xs font-medium uppercase tracking-[0.25em] text-resort-gold mb-16">Sanctuaries of Absolute Comfort</div>
+      <div id="rooms-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14"></div>
     </div>
   </section>
 
-  <section class="section-pad" style="background-color: #fff; border-top: 1px solid #f0ede9;">
-    <div class="container">
-      <h2 class="section-title">Accommodations</h2>
-      <div class="section-subtitle">Sanctuaries of Absolute Comfort</div>
-      <div id="rooms-container" class="rooms-grid"></div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <p id="footer-contact"></p>
-      <p style="font-size:0.75rem; opacity:0.4; margin-top:3rem;">&copy; 2026 Collective Luxury Architecture. Securely Delivered.</p>
+  <footer class="bg-resort-green text-white py-16 px-6 text-center text-sm font-light tracking-wider">
+    <div class="max-w-7xl mx-auto">
+      <p id="footer-contact" class="text-white/80"></p>
+      <p class="text-[10px] text-white/30 tracking-[0.2em] uppercase mt-12">&copy; 2026 Collective Luxury Architecture. Securely Delivered.</p>
     </div>
   </footer>
 
@@ -132,6 +76,8 @@
         
         if(data.hero_image) {
           document.getElementById('hero').style.backgroundImage = `url('${data.hero_image}')`;
+        } else {
+          document.getElementById('hero').style.backgroundImage = `url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80')`;
         }
         if(data.booking_url) {
           document.getElementById('booking-btn').href = data.booking_url;
@@ -143,28 +89,28 @@
         // Render Luxury Amenities Dynamic Grid
         const amenitiesContainer = document.getElementById('amenities-container');
         amenitiesContainer.innerHTML = (data.amenities || []).map(amenity => `
-          <div class="amenity-card">
-            <h3>${amenity.title}</h3>
-            <p>${amenity.description}</p>
+          <div class="text-center p-10 bg-white border border-neutral-100/30 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <h3 class="font-serif text-xl text-resort-green mb-3 font-normal">${amenity.title}</h3>
+            <p class="text-sm text-neutral-500 leading-relaxed">${amenity.description}</p>
           </div>
         `).join('');
 
         // Render Luxury Rooms Portfolio
         const roomsContainer = document.getElementById('rooms-container');
         roomsContainer.innerHTML = (data.rooms || []).map(room => `
-          <div class="room-card">
-            <div class="room-img-wrapper">
-              <img src="${room.photo || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80'}" alt="${room.room_name}">
+          <div class="bg-white flex flex-col group shadow-xs hover:shadow-2xl transition-all duration-500">
+            <div class="w-full h-80 overflow-hidden relative">
+              <img src="${room.photo || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80'}" alt="${room.room_name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
             </div>
-            <div class="room-details">
+            <div class="p-8 flex-grow flex flex-col justify-between border border-t-0 border-neutral-100">
               <div>
-                <div class="room-meta">
-                  <h3 class="room-title">${room.room_name}</h3>
-                  <span class="room-price">THB ${room.price} <span style="font-size:0.75rem; color:#999; font-weight:300;">/ night</span></span>
+                <div class="flex justify-between items-baseline mb-4 border-b border-neutral-100 pb-4">
+                  <h3 class="font-serif text-2xl text-resort-green font-normal">${room.room_name}</h3>
+                  <span class="text-base text-resort-gold font-medium whitespace-nowrap ml-2">THB ${room.price} <span class="text-xs text-neutral-400 font-light">/ night</span></span>
                 </div>
-                <p class="room-desc">${room.description || ''}</p>
+                <p class="text-sm text-neutral-500 leading-relaxed mb-6">${room.description || ''}</p>
               </div>
-              <div class="room-guests">Accommodates up to ${room.guests || 2} Guests</div>
+              <div class="text-[10px] text-neutral-400 font-medium uppercase tracking-wider">Accommodates up to ${room.guests || 2} Guests</div>
             </div>
           </div>
         `).join('');
