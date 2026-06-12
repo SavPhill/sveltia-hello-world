@@ -1,5 +1,7 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: SavPhill/sveltia-hello-world  # Put your exact GitHub Username/Repo here
+  branch: main
 
 media_folder: "images"
 public_folder: "/images"
