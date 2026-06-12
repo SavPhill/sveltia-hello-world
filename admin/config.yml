@@ -6,13 +6,44 @@ media_folder: "images"
 public_folder: "/images"
 
 collections:
-  - name: "pages"
-    label: "Pages"
+  - name: "hotel_data"
+    label: "Hotel Content"
     files:
       - file: "homepage.json"
-        label: "Homepage Content"
+        label: "Homepage & Resort Details"
         name: "homepage"
         fields:
-          - { label: "Main Headline", name: "headline", widget: "string" }
-          - { label: "Sub-headline", name: "subheadline", widget: "text" }
-          - { label: "Button Text", name: "cta_text", widget: "string" }
+          # Hero / Welcome Section
+          - { label: "Resort Name", name: "hotel_name", widget: "string" }
+          - { label: "Hero Headline", name: "hero_headline", widget: "string" }
+          - { label: "Hero Sub-headline", name: "hero_subheadline", widget: "text" }
+          - { label: "Hero Background Image", name: "hero_image", widget: "image" }
+          
+          # About / Intro
+          - { label: "Introduction Text", name: "intro_text", widget: "markdown" }
+
+          # Core Amenities
+          - label: "Resort Amenities"
+            name: "amenities"
+            widget: "list"
+            summary: '{{fields.title}}'
+            fields:
+              - { label: "Amenity Title", name: "title", widget: "string" }
+              - { label: "Short Description", name: "description", widget: "text" }
+
+          # Rooms & Suites
+          - label: "Rooms & Suites"
+            name: "rooms"
+            widget: "list"
+            summary: '{{fields.room_name}} - {{fields.price}}'
+            fields:
+              - { label: "Room Name", name: "room_name", widget: "string" }
+              - { label: "Price Per Night (THB)", name: "price", widget: "string" }
+              - { label: "Max Guests", name: "guests", widget: "number", value_type: "int" }
+              - { label: "Room Description", name: "description", widget: "text" }
+              - { label: "Room Photo", name: "photo", widget: "image" }
+              
+          # Contact & Booking Redirect
+          - { label: "Booking Engine URL or LINE Link", name: "booking_url", widget: "string" }
+          - { label: "Contact Phone", name: "phone", widget: "string" }
+          - { label: "Contact Email", name: "email", widget: "string" }

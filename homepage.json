@@ -1,5 +1,29 @@
 {
-  "headline": "hello from hello world",
-  "subheadline": "hello world 2",
-  "cta_text": "button 3"
+  "hotel_name": "Hideaway Resort",
+  "hero_headline": "An Exclusive Escape in Northern Thailand",
+  "hero_subheadline": "Experience serene luxury, wellness retreats, and personalized hospitality.",
+  "hero_image": "",
+  "intro_text": "Welcome to our boutique sanctuary. Tucked away among lush mountain backdrops, we provide an experiential retreat tailored for exceptional comfort and relaxation.",
+  "amenities": [
+    {
+      "title": "Infinity Pool",
+      "description": "Overlooking serene, panoramic natural landscapes."
+    },
+    {
+      "title": "Private Wellness Coaching",
+      "description": "Bespoke optimization and fitness sessions available upon request."
+    }
+  ],
+  "rooms": [
+    {
+      "room_name": "Deluxe Garden Suite",
+      "price": "4,500",
+      "guests": 2,
+      "description": "A elegant space blending local design elements with modern high-end amenities.",
+      "photo": ""
+    }
+  ],
+  "booking_url": "https://line.me",
+  "phone": "+66 81 234 5678",
+  "email": "stay@stest.com"
 }
