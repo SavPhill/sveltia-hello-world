@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Generated Site</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+</head>
+<body>
+    <header style="text-align: center; margin-top: 5rem;">
+        <h1 id="headline">Loading headline...</h1>
+        <p id="subheadline" style="font-size: 1.2rem; color: #555;">Loading subheadline...</p>
+        <button id="cta" style="margin-top: 1.5rem; padding: 0.8rem 2rem; font-size: 1rem; cursor: pointer;"></button>
+    </header>
+
+    <script>
+        // Fetch the data file written by the AI/CMS and update the page
+        fetch('./homepage.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('headline').innerText = data.headline;
+                document.getElementById('subheadline').innerText = data.subheadline;
+                document.getElementById('cta').innerText = data.cta_text;
+            });
+    </script>
+</body>
+</html>
