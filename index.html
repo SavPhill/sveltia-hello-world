@@ -1,28 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Generated Site</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique Resort</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+  <style>
+    :root { --primary: #1a3a3a; --dark: #2d2d2d; --light: #f4f6f6; }
+    body { font-family: system-ui, sans-serif; margin: 0; color: var(--dark); line-height: 1.6; }
+    header { background: var(--primary); color: white; padding: 4rem 2rem; text-align: center; background-size: cover; background-position: center; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .card { background: white; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card-content { padding: 1.5rem; }
+    .btn { display: inline-block; background: var(--primary); color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 4px; font-weight: bold; }
+    .amenity-list { list-style: none; padding: 0; }
+    .amenity-item { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; }
+    .amenity-item::before { content: "✓"; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+  </style>
 </head>
 <body>
-    <header style="text-align: center; margin-top: 5rem;">
-        <h1 id="headline">Loading headline...</h1>
-        <p id="subheadline" style="font-size: 1.2rem; color: #555;">Loading subheadline...</p>
-        <button id="cta" style="margin-top: 1.5rem; padding: 0.8rem 2rem; font-size: 1rem; cursor: pointer;"></button>
-    </header>
 
-    <script>
-        // Fetch the data file written by the AI/CMS and update the page
-        fetch('./homepage.json')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('headline').innerText = data.headline;
-                document.getElementById('subheadline').innerText = data.subheadline;
-                document.getElementById('cta').innerText = data.cta_text;
-            });
-    </script>
+  <header id="hero" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80');">
+    <h1 id="hotel-name">Loading Resort...</h1>
+    <p id="hero-headline" style="font-size: 1.5rem; max-width: 600px; margin: 1rem auto;"></p>
+    <a href="#" id="booking-btn" class="btn" target="_blank">Book Now</a>
+  </header>
+
+  <div class="container">
+    <section style="margin: 3rem 0; text-align: center;">
+      <div id="intro-text" style="font-size: 1.2rem; color: #555; max-width: 800px; margin: 0 auto;"></div>
+    </section>
+
+    <section style="margin: 4rem 0;">
+      <h2>Resort Amenities</h2>
+      <ul id="amenities-container" class="amenity-list"></ul>
+    </section>
+
+    <section style="margin: 4rem 0;">
+      <h2>Our Rooms & Suites</h2>
+      <div id="rooms-container" class="grid"></div>
+    </section>
+  </div>
+
+  <script>
+    async function loadHotelData() {
+      try {
+        const response = await fetch('/homepage.json');
+        const data = await response.json();
+
+        // Populate Hero Text
+        document.getElementById('hotel-name').innerText = data.hotel_name || "Boutique Resort";
+        document.getElementById('hero-headline').innerText = data.hero_headline || "";
+        if(data.hero_image) {
+          document.getElementById('hero').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${data.hero_image}')`;
+        }
+        if(data.booking_url) {
+          document.getElementById('booking-btn').href = data.booking_url;
+        }
+
+        // Populate Intro
+        document.getElementById('intro-text').innerText = data.intro_text || "";
+
+        // Populate Amenities
+        const amenitiesContainer = document.getElementById('amenities-container');
+        amenitiesContainer.innerHTML = (data.amenities || []).map(amenity => `
+          <li class="amenity-item">
+            <strong>${amenity.title}:</strong> ${amenity.description}
+          </li>
+        `).join('');
+
+        // Populate Rooms
+        const roomsContainer = document.getElementById('rooms-container');
+        roomsContainer.innerHTML = (data.rooms || []).map(room => `
+          <div class="card">
+            <img src="${room.photo || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=600&q=80'}" alt="${room.room_name}">
+            <div class="card-content">
+              <h3>${room.room_name}</h3>
+              <p style="color: #777; font-weight: bold;">${room.price} THB / Night</p>
+              <p style="font-size: 0.9rem; color: #555;">Max Guests: ${room.guests || 2}</p>
+              <p>${room.description || ''}</p>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        console.error("Error loading hotel content:", error);
+      }
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', loadHotelData);
+  </script>
+
 </body>
 </html>
